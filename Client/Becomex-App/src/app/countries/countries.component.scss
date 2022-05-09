@@ -1,0 +1,63 @@
+.container{
+  width: 90%;
+  margin:0px 20px;
+}
+
+.third-width {
+  width: 10%;
+}
+
+.headshot {
+  border-radius: 5px;
+  border: 1px solid;
+  max-width: 50%;
+  max-height: 30%;
+  display: inline-block;
+  margin:5px 1px 1px 1px;
+}
+
+.dialogflag{
+  border-radius: 5px;
+  border: 1px solid;
+  display: inline-block;
+  width: 400px;
+  height: 200px;
+  margin-bottom: 10px;
+}
+
+.dialog{
+ width: 435px;
+}
+
+.itensModal{
+  background: #ececec;
+  padding: 5px;
+  margin: 0px;
+  font: 20px bold;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.modal-body span{
+  font-size: 14px;
+  padding: 5px;
+}
+
+.btnclose{
+  background-color: gainsboro;
+}
+
+.frm-search{
+  margin:10px 0px;
+}
+
+h2{
+  margin:0px;
+  padding:5px;
+  float:left;
+}
+
+.btnRoute{
+  float:right;
+  padding:5px;
+  margin:0px;
+}

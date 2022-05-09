@@ -1,0 +1,110 @@
+<div>
+  <div>
+    <h2>Paises</h2>
+  </div>
+  <div>
+    <button type="button" (click)="BuscarRota(templateRoute)" class="btn btn-secondary btnRoute">Traçar Rota Comercial</button>
+  </div>
+  <div class="form-group mb-2 frm-search">
+    <input class="form-control col-md-6" type="text" placeholder="Digite para filtrar os paises por nome ou sigla." [(ngModel)]="filtroLista">
+  </div>
+</div>
+
+
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+    <thead class="bg-secondary text-light">
+      <tr>
+        <th>Bandeira</th>
+        <th>Nome do Pais</th>
+        <th>Sigla</th>
+        <th>Moedas</th>
+        <th>Blocos ecônomicos</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="countries">
+      <tr *ngFor="let country of countriesfiltrados, let row" (click)="onRowClicked(row,template)">
+        <td class="third-width"><img class="headshot" [src]="country.flags.flag" alt=""/></td>
+        <td>{{country.name | uppercase}}</td>
+        <td>{{country.alpha3Code | uppercase}}</td>
+        <td>
+          <span *ngFor="let item of country.currencies; last as isLast">{{item.code}}<span *ngIf="!isLast">,</span></span>
+        </td>
+        <td>
+          <span *ngFor="let item of country.regionalBlocs; last as isLast">{{item.acronym}}<span *ngIf="!isLast">,</span></span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div bsModal #template="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog dialog" *ngIf="country">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">{{country.name}}</h4>
+        <button type="button" class="btnclose" (click)="fechaModal(template)" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <img class="dialogflag" [src]="country.flags.flag" alt=""/>
+          <p class="itensModal">População</p>
+          <span>{{country.population}}</span>
+            <p class="itensModal">TimeZone</p>
+            <span *ngFor="let item of country.timezones; last as isLast">{{item}}<span *ngIf="!isLast">,</span></span>
+
+            <p class="itensModal">Moedas</p>
+            <span *ngFor="let item of country.currencies; last as isLast">{{item.code}}<span *ngIf="!isLast">,</span></span>
+
+            <p class="itensModal">Línguas</p>
+            <span *ngFor="let item of country.languages; last as isLast">{{item.name}}<span *ngIf="!isLast">,</span></span>
+
+            <p class="itensModal">Capital</p>
+            <span>{{country.capital}}</span>
+
+            <p class="itensModal">Blocos ecônomicos</p>
+            <span *ngFor="let item of country.regionalBlocs; last as isLast">{{item.acronym}}<span *ngIf="!isLast">,</span></span>
+
+            <p class="itensModal" >Países que fazem fronteira</p>
+            <span *ngFor="let item of country.borders; last as isLast">{{item}}<span *ngIf="!isLast">,</span></span>
+         </div>
+      <div class="modal-footer d-flex">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #templateRoute="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Rota comercial.</h4>
+        <button type="button" class="btnclose" (click)="fechaModal(templateRoute)" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3" [formGroup]="form">
+          <div class="col-md-12">
+            <label for="inputOrigem" class="form-label">Origem</label>
+            <input type="text" class="form-control" formControlName="inputOrigem"  placeholder="Informe a Sigla do pais de origem.">
+          </div>
+          <div class="col-md-12">
+            <label for="inputDestino" class="form-label">Destino</label>
+            <input type="text" class="form-control" formControlName="inputDestino" placeholder="Informe a Sigla do pais de destino.">
+          </div>
+      <p *ngIf="route">A melhor rota é: </p>
+      <p *ngIf="route">{{route}}</p>
+      <div class="modal-footer d-flex">
+          <button type="button" class="btn btn-secondary" (click)="templateRoute.hide()">
+            Cancelar
+          </button>
+           <button type="button" class="btn btn-primary ml-auto" (click)="getBestRoute()">
+            Buscar
+          </button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
